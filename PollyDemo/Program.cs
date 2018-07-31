@@ -16,6 +16,11 @@ namespace PollyDemo
     {
         static void Main(string[] args)
         {
+            PolicyWrap policyWrap = fallback.Wrap(cache).Wrap(retry).Wrap(breaker).Wrap(bulkhead).Wrap(timeout);
+            // or (functionally equivalent)
+            PolicyWrap policyWrap = fallback.Wrap(cache.Wrap(retry.Wrap(breaker.Wrap(bulkhead.Wrap(timeout)))));
+
+
             while (true)
             {
                 var key = Console.ReadLine();
